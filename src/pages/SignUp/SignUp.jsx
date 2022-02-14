@@ -72,11 +72,11 @@ const SignUp = () => {
         })
     }, []);
 
-    const registerState = useSelector((state) => state.register.loginSuccess);
+    const registerState = useSelector((state) => state.register.registerSuccess);
 
     useEffect(() => {
-        if (registerState.registerSuccess) {
-            navigate("/");
+        if (registerState) {
+            navigate("/signin");
         }
     }, [navigate, registerState]);
 

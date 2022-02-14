@@ -3,6 +3,7 @@ import {Route, useNavigate, Routes} from "react-router-dom";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import {useSelector} from "react-redux";
 import {MetroSpinner} from "react-spinners-kit";
+import NotFound from "../pages/NotFound/NotFound";
 
 const loading = (
     <div className="d-flex pt-5 mt-5 align-items-center justify-content-center">
@@ -26,18 +27,17 @@ const Routers = () => {
         if (token || loginState.loginSuccess) {
             navigate("/");
         }
-    }, [token, navigate, loginState]);
+    }, [token, loginState]);
 
     return (
         <React.Suspense fallback={loading}>
             <Routes>
                 <Route exact path="/signin" element={<SignIn/>}/>
                 <Route exact path="/signup" element={<SignUp/>}/>
-                <Route exact path="/" element={
-                    // <ProtectedRoute>
-                        <Layout/>
-                    // </ProtectedRoute>
-                }/>
+                <Route exact path='/' element={<ProtectedRoute/>}>
+                    <Route exact path='/' element={<Layout/>}/>
+                </Route>
+                <Route path="*" element={<NotFound/>}/>
             </Routes>
         </React.Suspense>
     );

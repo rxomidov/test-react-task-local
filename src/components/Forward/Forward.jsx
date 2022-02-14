@@ -6,6 +6,8 @@ import styled from "styled-components";
 import {useDispatch} from "react-redux";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
+import {ShowNotification} from "../../layout/ShowNotification/SHowNotification";
 
 const schema = yup.object().shape({
     email: yup.string().required().default("This field is required!"),
@@ -22,12 +24,39 @@ const Forward = () => {
     const {handleSubmit, control, formState: {errors}, reset, register} = methods;
 
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
+        let token = localStorage.getItem("token");
+
+        let bodyFormData = new FormData();
+
+        bodyFormData.append('email', data.email);
+
+        axios.post(`http://92.63.206.40:1122/api/change_email`, bodyFormData, {
+                headers: {
+                    "x-access-token": token,
+                }
+            }
+        ).then(response => {
+            // console.log(response.data.msg);
+            ShowNotification(
+                "success",
+                `${response.data.msg}`,
+                "Successfully edited!"
+            );
+            resetForm();
+        }).catch(error => {
+            // console.log(error)
+            ShowNotification(
+                "error",
+                `${error.msg}`,
+                "Please try again!"
+            );
+        })
     };
 
     const resetForm = () => {
         reset({
-            phoneNumber: null,
+            email: null,
         });
     };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import {Controller, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -6,8 +6,8 @@ import * as yup from "yup";
 import bgImg from "../../assets/Login/background.png";
 import {Button, Input} from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {loginStart} from "../../services/actions/loginActions";
 import axios from "axios";
 
@@ -19,6 +19,7 @@ const schema = yup.object().shape({
 const SignIn = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const methods = useForm({
         resolver: yupResolver(schema),
@@ -34,21 +35,6 @@ const SignIn = () => {
         bodyFormData.append('login', data.login);
         bodyFormData.append('password', data.password);
 
-        // axios({
-        //     method: "post",
-        //     url: "http://92.63.206.40:1122/api/login",
-        //     data: bodyFormData,
-        //     headers: { "Content-Type": "multipart/form-data" },
-        // })
-        //     .then(function (response) {
-        //         //handle success
-        //         console.log(response);
-        //     })
-        //     .catch(function (response) {
-        //         //handle error
-        //         console.log(response);
-        //     });
-
         dispatch(loginStart(bodyFormData));
     };
 
@@ -58,6 +44,14 @@ const SignIn = () => {
             password: null,
         });
     };
+
+    const loginState = useSelector((state) => state.login.loginSuccess);
+
+    useEffect(() => {
+        if (loginState) {
+            navigate("/signin");
+        }
+    }, [navigate, loginState]);
 
     return (
         <SignInWrapper>

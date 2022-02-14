@@ -9,6 +9,7 @@ import styled from "styled-components";
 import StyledButton from "../../layout/StyledButton/StyledButton";
 import axios from "axios";
 import {ShowNotification} from "../../layout/ShowNotification/SHowNotification";
+import URL from "../../services/api/config";
 
 const schema = yup.object().shape({
     current: yup.string().required().default("This field is required!"),
@@ -36,7 +37,7 @@ const ChangePassword = () => {
         bodyFormData.append('new_password', data.new);
         bodyFormData.append('repeat_password', data.confirm);
 
-        axios.post(`http://92.63.206.40:1122/api/change_password`, bodyFormData, {
+        axios.post(`${URL}/change_password`, bodyFormData, {
                 headers: {
                     "x-access-token": token,
                 }
