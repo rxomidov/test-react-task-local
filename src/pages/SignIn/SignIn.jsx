@@ -45,13 +45,14 @@ const SignIn = () => {
         });
     };
 
+    let token = localStorage.getItem("token");
     const loginState = useSelector((state) => state.login.loginSuccess);
 
     useEffect(() => {
-        if (loginState) {
+        if (token || loginState) {
             navigate("/signin");
         }
-    }, [navigate, loginState]);
+    }, [token, loginState]);
 
     return (
         <SignInWrapper>
