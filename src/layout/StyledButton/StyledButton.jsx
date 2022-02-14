@@ -7,6 +7,7 @@ const StyledButton = ({text, type, onClick, ...rest}) => {
             <button
                 onClick={onClick}
                 type={type}
+                className="btn"
                 {...rest}
             >
                 {text}
@@ -29,6 +30,7 @@ const Wrapper = styled.div`
     text-transform:uppercase;
     :hover{
       background: #444;
+      color: #fff;
     }
   }
 `;

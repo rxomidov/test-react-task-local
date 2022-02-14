@@ -1,7 +1,17 @@
 import React from 'react';
 import styled from "styled-components";
+import StyledButton from "../../layout/StyledButton/StyledButton";
+import {useNavigate} from "react-router-dom";
 
 const Header = () => {
+
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.removeItem("token");
+        navigate("/signin");
+    };
+
     return (
         <HeaderWrapper>
             <div className="container d-flex justify-content-between">
@@ -15,6 +25,9 @@ const Header = () => {
                     <div>Поддержка</div>
                     <div>профиль</div>
                     <div>язык</div>
+                    <div>
+                        <StyledButton onClick={logout} text="logout"/>
+                    </div>
                 </div>
             </div>
         </HeaderWrapper>
@@ -50,7 +63,7 @@ const HeaderWrapper = styled.div`
     }
     .header-items{
     div{
-        font-size: 1rem;
+        font-size: 14px;
         padding: 0.5rem 10px;
       }
     }
