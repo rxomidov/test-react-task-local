@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import URL from "./config";
+import {ShowNotification} from "../../layout/ShowNotification/SHowNotification";
 
 const request = axios.create({
     baseURL: URL,
@@ -28,7 +29,11 @@ const subscribe = (history = null) => {
         (error) => {
             if (error?.response?.status === 401) {
                 localStorage.removeItem("token");
-                history.push("/");
+                // history.push("/signin");
+                ShowNotification(
+                    "error",
+                    `Unauthorized!`
+                );
             }
 
             if (error.response?.data) {

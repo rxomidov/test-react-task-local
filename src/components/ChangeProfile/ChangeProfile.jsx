@@ -59,7 +59,7 @@ const Wrapper = styled.div`
   .upload-image{
     position:absolute;
     right: 0.4rem;
-    bottom: 2.5rem;
+    bottom: -0.5rem;
     cursor: pointer;
   }
   .edit-button{
@@ -77,6 +77,7 @@ const Wrapper = styled.div`
     }
     .upload-image img{
       width: 2rem;height: 2rem;
+      object-fit: contain;
     }
   }
 `;
