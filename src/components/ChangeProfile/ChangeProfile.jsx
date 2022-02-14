@@ -5,6 +5,9 @@ import camera from "../../assets/Profile/camera.png"
 import edit from "../../assets/Profile/edit.png"
 import {useDispatch, useSelector} from "react-redux";
 import {userInfoStart} from "../../services/actions/userInfoActions";
+import PhoneTwoTone from "@ant-design/icons/lib/icons/PhoneTwoTone";
+import InfoCircleTwoTone from "@ant-design/icons/lib/icons/InfoCircleTwoTone";
+import CopyTwoTone from "@ant-design/icons/lib/icons/CopyTwoTone";
 
 const ChangeProfile = () => {
 
@@ -27,9 +30,19 @@ const ChangeProfile = () => {
                 </div>
                 <div className="col-md-9 position-relative">
                     <h4>{userInfoState.name} {userInfoState.surname}</h4>
-                    <h5>{userInfoState.phone}</h5>
-                    <h5>{userInfoState.faculty_name}</h5>
-                    <h4>Software Engineer</h4>
+                    <div className="d-flex align-items-center mb-2">
+                        <PhoneTwoTone className="me-2"/>
+                        <h5 className="m-0">{userInfoState.phone}</h5>
+                    </div>
+                    <div className="d-flex align-items-center mb-2">
+                        <CopyTwoTone className="me-2" />
+                        <h5 className="m-0">{userInfoState.faculty_name}</h5>
+                    </div>
+
+                    <div className="d-flex align-items-center mb-2">
+                        <InfoCircleTwoTone className="me-2"/>
+                        <h4 className="m-0">Software Engineer</h4>
+                    </div>
                     <div className="edit-button" onClick={() => console.log("edit")}>
                         <img src={edit} alt="edit"/>
                     </div>
